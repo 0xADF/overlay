@@ -1,0 +1,13 @@
+--- client.conf.linux	2015-10-20 00:31:29.149883864 +0300
++++ client.conf.linux.new	2015-10-20 00:31:55.639883596 +0300
+@@ -55,8 +55,8 @@
+ 
+ # Linux-specific
+ # Parses DHCP options from openvpn to update resolv.conf
+-up /etc/openvpn/update-resolv-conf
+-down /etc/openvpn/update-resolv-conf
++up /etc/openvpn/up.sh
++down /etc/openvpn/down.sh
+ 
+ # Allow calling of built-in executables and user-defined scripts.
+ script-security 2

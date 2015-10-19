@@ -1,0 +1,9 @@
+--- mullvad.desktop	2015-09-17 15:28:00.000000000 +0300
++++ mullvad.desktop.new	2015-10-20 01:06:32.309862522 +0300
+@@ -8,5 +8,5 @@
+ Exec=mullvad
+ Terminal=false
+ Type=Application
+-Icon=mullvad.png
++Icon=mullvad
+ Categories=Network;
