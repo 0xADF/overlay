@@ -1,0 +1,29 @@
+--- b40c/Makefile	2014-02-04 19:27:34.000000000 +0400
++++ b40c/Makefile.new	2015-12-17 23:58:59.469986850 +0300
+@@ -18,7 +18,7 @@
+ 
+ GEN_SM20 = -gencode=arch=compute_20,code=\"sm_20,compute_20\" 
+ GEN_SM13 = -gencode=arch=compute_13,code=\"sm_13,compute_13\" 
+-GEN_SM10 = -gencode=arch=compute_10,code=\"sm_10,compute_10\" 
++GEN_SM11 = -gencode=arch=compute_11,code=\"sm_11,compute_11\" 
+ 
+ INC = -I"$(CUDA_ROOT)/include" -I. 
+ 
+@@ -32,14 +32,14 @@
+ 
+ LIBNAME = sort_engine
+ 
+-all: $(LIBNAME)_sm10.$(EXT) $(LIBNAME)_sm13.$(EXT) $(LIBNAME)_sm20.$(EXT)
++all: $(LIBNAME)_sm11.$(EXT) $(LIBNAME)_sm13.$(EXT) $(LIBNAME)_sm20.$(EXT)
+ 	touch built
+ 
+ clean :
+ 	rm -f  *.$(EXT) *.lib *.exp *.dll built
+ 
+-$(LIBNAME)_sm10.$(EXT) : $(DEPS)
+-	$(NVCC) $(GEN_SM10) -o $@ sort_engine.cu $(NVCCFLAGS) $(INC) -O3  
++$(LIBNAME)_sm11.$(EXT) : $(DEPS)
++	$(NVCC) $(GEN_SM11) -o $@ sort_engine.cu $(NVCCFLAGS) $(INC) -O3  
+ 
+ $(LIBNAME)_sm13.$(EXT) : $(DEPS)
+ 	$(NVCC) $(GEN_SM13) -o $@ sort_engine.cu $(NVCCFLAGS) $(INC) -O3  

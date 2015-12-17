@@ -1,0 +1,28 @@
+--- Makefile	2014-02-04 19:39:55.000000000 +0400
++++ Makefile.new	2015-12-17 23:47:53.099988400 +0300
+@@ -22,15 +22,8 @@
+ OPT_FLAGS = -O3 -fomit-frame-pointer -march=core2 \
+ 	    -D_FILE_OFFSET_BITS=64 -DNDEBUG -D_LARGEFILE64_SOURCE
+ 
+-# use := instead of = so we only run the following once
+-SVN_VERSION := $(shell svnversion .)
+-ifeq ($(SVN_VERSION),)
+-	SVN_VERSION := unknown
+-endif
+-
+ CFLAGS = $(OPT_FLAGS) $(MACHINE_FLAGS) $(WARN_FLAGS) \
+-	 	-DMSIEVE_SVN_VERSION="\"$(SVN_VERSION)\"" \
+-		-I. -Iinclude -Ignfs -Ignfs/poly -Ignfs/poly/stage1
++	 	-I. -Iinclude -Ignfs -Ignfs/poly -Ignfs/poly/stage1
+ 
+ # tweak the compile flags
+ 
+@@ -46,7 +39,7 @@
+ ifeq ($(CUDA),1)
+ 
+ ifeq ($(WIN),1)
+-	CUDA_ROOT = $(shell echo $$CUDA_PATH)
++	CUDA_ROOT = $(echo $$CUDA_PATH)
+ 	NVCC = "$(CUDA_ROOT)/bin/nvcc"
+ 	CUDA_LIBS = "$(CUDA_ROOT)/lib/win32/cuda.lib"
+ else
