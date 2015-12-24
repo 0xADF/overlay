@@ -16,13 +16,3 @@
 +	 	-I. -Iinclude -Ignfs -Ignfs/poly -Ignfs/poly/stage1
  
  # tweak the compile flags
- 
-@@ -46,7 +39,7 @@
- ifeq ($(CUDA),1)
- 
- ifeq ($(WIN),1)
--	CUDA_ROOT = $(shell echo $$CUDA_PATH)
-+	CUDA_ROOT = $(echo $$CUDA_PATH)
- 	NVCC = "$(CUDA_ROOT)/bin/nvcc"
- 	CUDA_LIBS = "$(CUDA_ROOT)/lib/win32/cuda.lib"
- else

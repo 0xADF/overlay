@@ -1,0 +1,14 @@
+--- yafu.ini	2013-03-06 17:59:14.000000000 +0400
++++ yafu.ini.new	2015-12-24 22:08:50.910066618 +0300
+@@ -4,8 +4,6 @@
+ rhomax=1000
+ threads=1
+ pretest_ratio=0.25
+-%ggnfs_dir=..\ggnfs-bin\Win32\
+-ggnfs_dir=../ggnfs-bin/
+-%ecm_path=..\gmp-ecm\bin\x64\Release\ecm.exe
+-%ecm_path=../ecm/current/ecm
+-tune_info=       Intel(R) Xeon(R) CPU E5-4650 0 @ 2.70GHz,LINUX64,1.73786e-05,0.200412,0.400046,0.0987873,98.8355,2699.98
++ggnfs_dir=/usr/bin/
++ecm_path=/usr/bin/ecm
++tune_info=       Intel(R) Xeon(R) CPU E5-4650 0 @ 2.70GHz,LINUX64,1.73786e-05,0.200412,0.400046,0.0987873,98.8355,2699.98
