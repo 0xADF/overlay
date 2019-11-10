@@ -1,0 +1,16 @@
+diff -ur tdesktop-1.8.2-orig/Telegram/SourceFiles/core/sandbox.cpp tdesktop-1.8.2/Telegram/SourceFiles/core/sandbox.cpp
+--- tdesktop-1.8.2-orig/Telegram/SourceFiles/core/sandbox.cpp	2019-08-20 16:03:21.000000000 +0300
++++ tdesktop-1.8.2/Telegram/SourceFiles/core/sandbox.cpp	2019-08-31 16:06:33.861546609 +0300
+@@ -167,8 +167,10 @@
+ 		cSetScreenScale(100); // 100%:  96 DPI (0-108)
+ 	} else if (dpi <= 132) {
+ 		cSetScreenScale(125); // 125%: 120 DPI (108-132)
+-	} else if (dpi <= 168) {
+-		cSetScreenScale(150); // 150%: 144 DPI (132-168)
++	} else if (dpi <= 152) {
++		cSetScreenScale(150); // 150%: 144 DPI (132-152)
++	} else if (dpi <= 192) {
++		cSetScreenScale(175); // 175%: 163 DPI (152-192)
+ 	} else if (dpi <= 216) {
+ 		cSetScreenScale(200); // 200%: 192 DPI (168-216)
+ 	} else if (dpi <= 264) {

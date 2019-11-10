@@ -1,0 +1,21 @@
+diff -Naur xmr-stak-master-old/CMakeLists.txt xmr-stak-master/CMakeLists.txt
+--- xmr-stak-master-old/CMakeLists.txt	2017-12-09 16:17:33.000000000 +0300
++++ xmr-stak-master/CMakeLists.txt	2017-12-12 22:46:20.500004354 +0300
+@@ -536,7 +536,7 @@
+                 RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
+         else()
+             install(TARGETS xmrstak_cuda_backend
+-                LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
++                LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+         endif()
+     endif()
+     if(OpenCL_FOUND)
+@@ -545,7 +545,7 @@
+                 RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
+         else()
+             install(TARGETS xmrstak_opencl_backend
+-                LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
++                LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+         endif()
+     endif()
+ else()

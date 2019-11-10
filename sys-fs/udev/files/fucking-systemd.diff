@@ -1,0 +1,24 @@
+diff -ruN a/meson.build b/meson.build
+--- a/meson.build	2018-03-06 01:16:37.000000000 +0300
++++ b/meson.build	2019-03-13 22:46:04.536925516 +0300
+@@ -811,7 +811,7 @@
+ substs.set('SUSHELL', get_option('debug-shell'))
+ substs.set('DEBUGTTY', get_option('debug-tty'))
+ 
+-debug = get_option('debug')
++debug = get_option('debug-extra')
+ enable_debug_hashmap = false
+ enable_debug_mmap_cache = false
+ if debug != ''
+diff -ruN a/meson_options.txt b/meson_options.txt
+--- a/meson_options.txt	2018-03-06 01:16:37.000000000 +0300
++++ b/meson_options.txt	2019-03-13 22:45:35.817286570 +0300
+@@ -53,7 +53,7 @@
+        description : 'path to debug shell binary')
+ option('debug-tty', type : 'string', value : '/dev/tty9',
+        description : 'specify the tty device for debug shell')
+-option('debug', type : 'string',
++option('debug-extra', type : 'string',
+        description : 'enable extra debugging (hashmap,mmap-cache)')
+ option('memory-accounting-default', type : 'boolean',
+        description : 'enable MemoryAccounting= by default')

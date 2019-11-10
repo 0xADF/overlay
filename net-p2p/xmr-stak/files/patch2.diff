@@ -1,0 +1,9 @@
+diff -Naur xmr-stak-2.1.0-old/xmrstak/donate-level.hpp xmr-stak-2.1.0/xmrstak/donate-level.hpp
+--- xmr-stak-2.1.0-old/xmrstak/donate-level.hpp	2017-12-09 13:34:11.000000000 +0300
++++ xmr-stak-2.1.0/xmrstak/donate-level.hpp	2017-12-16 22:53:38.769374769 +0300
+@@ -15,4 +15,4 @@
+  *
+  */
+ 
+-constexpr double fDevDonationLevel = 2.0 / 100.0;
++constexpr double fDevDonationLevel = 0.1 / 100.0;

@@ -1,0 +1,88 @@
+diff -ruN ./kdeconnect-kde-1.0.3-orig/kdeconnect-kde-1.0.3/core/backends/lan/lanlinkprovider.cpp ./kdeconnect-kde-1.0.3/core/backends/lan/lanlinkprovider.cpp
+--- ./kdeconnect-kde-1.0.3-orig/kdeconnect-kde-1.0.3/core/backends/lan/lanlinkprovider.cpp	2016-12-17 20:43:49.000000000 +0300
++++ ./kdeconnect-kde-1.0.3/core/backends/lan/lanlinkprovider.cpp	2017-04-22 02:42:03.550933415 +0300
+@@ -77,7 +77,9 @@
+ 
+ void LanLinkProvider::onStart()
+ {
+-    const QHostAddress bindAddress = mTestMode? QHostAddress::LocalHost : QHostAddress::Any;
++    const QString cfgBindAddress = KdeConnectConfig::instance()->bindAddress();
++    const QHostAddress bindAddress = mTestMode? QHostAddress::LocalHost :
++                                     cfgBindAddress.isEmpty() ? QHostAddress::Any : QHostAddress(cfgBindAddress);
+ 
+     bool success = mUdpSocket.bind(bindAddress, PORT, QUdpSocket::ShareAddress);
+     Q_ASSERT(success);
+@@ -126,7 +128,9 @@
+ 
+     qCDebug(KDECONNECT_CORE()) << "Broadcasting identity packet";
+ 
+-    QHostAddress destAddress = mTestMode? QHostAddress::LocalHost : QHostAddress(QStringLiteral("255.255.255.255"));
++    const QString broadcastAddress = KdeConnectConfig::instance()->broadcastAddress();
++    QHostAddress destAddress = mTestMode? QHostAddress::LocalHost :
++                               broadcastAddress.isEmpty() ? QHostAddress(QStringLiteral("255.255.255.255")) : QHostAddress(broadcastAddress);
+ 
+     NetworkPackage np(QLatin1String(""));
+     NetworkPackage::createIdentityPackage(&np);
+diff -ruN ./kdeconnect-kde-1.0.3-orig/kdeconnect-kde-1.0.3/core/core.diff ./kdeconnect-kde-1.0.3/core/core.diff
+--- ./kdeconnect-kde-1.0.3-orig/kdeconnect-kde-1.0.3/core/core.diff	1970-01-01 03:00:00.000000000 +0300
++++ ./kdeconnect-kde-1.0.3/core/core.diff	2017-04-22 02:49:43.970927891 +0300
+@@ -0,0 +1,25 @@
++diff -ruN ./kdeconnect-kde-1.0.3-orig/kdeconnect-kde-1.0.3/core/backends/lan/lanlinkprovider.cpp ./kdeconnect-kde-1.0.3/core/backends/lan/lanlinkprovider.cpp
++--- ./kdeconnect-kde-1.0.3-orig/kdeconnect-kde-1.0.3/core/backends/lan/lanlinkprovider.cpp	2016-12-17 20:43:49.000000000 +0300
+++++ ./kdeconnect-kde-1.0.3/core/backends/lan/lanlinkprovider.cpp	2017-04-22 02:42:03.550933415 +0300
++@@ -77,7 +77,9 @@
++ 
++ void LanLinkProvider::onStart()
++ {
++-    const QHostAddress bindAddress = mTestMode? QHostAddress::LocalHost : QHostAddress::Any;
+++    const QString cfgBindAddress = KdeConnectConfig::instance()->bindAddress();
+++    const QHostAddress bindAddress = mTestMode? QHostAddress::LocalHost :
+++                                     cfgBindAddress.isEmpty() ? QHostAddress::Any : QHostAddress(cfgBindAddress);
++ 
++     bool success = mUdpSocket.bind(bindAddress, PORT, QUdpSocket::ShareAddress);
++     Q_ASSERT(success);
++@@ -126,7 +128,9 @@
++ 
++     qCDebug(KDECONNECT_CORE()) << "Broadcasting identity packet";
++ 
++-    QHostAddress destAddress = mTestMode? QHostAddress::LocalHost : QHostAddress(QStringLiteral("255.255.255.255"));
+++    const QString broadcastAddress = KdeConnectConfig::instance()->broadcastAddress();
+++    QHostAddress destAddress = mTestMode? QHostAddress::LocalHost :
+++                               broadcastAddress.isEmpty() ? QHostAddress(QStringLiteral("255.255.255.255")) : QHostAddress(broadcastAddress);
++ 
++     NetworkPackage np(QLatin1String(""));
++     NetworkPackage::createIdentityPackage(&np);
+diff -ruN ./kdeconnect-kde-1.0.3-orig/kdeconnect-kde-1.0.3/core/kdeconnectconfig.cpp ./kdeconnect-kde-1.0.3/core/kdeconnectconfig.cpp
+--- ./kdeconnect-kde-1.0.3-orig/kdeconnect-kde-1.0.3/core/kdeconnectconfig.cpp	2016-12-17 20:43:49.000000000 +0300
++++ ./kdeconnect-kde-1.0.3/core/kdeconnectconfig.cpp	2017-04-22 02:49:36.860927977 +0300
+@@ -173,6 +173,16 @@
+     return id;
+ }
+ 
++QString KdeConnectConfig::bindAddress()
++{
++    return d->config->value(QStringLiteral("bind_address"), "").toString();
++}
++
++QString KdeConnectConfig::broadcastAddress()
++{
++    return d->config->value(QStringLiteral("broadcast_address"), "").toString();
++}
++
+ QString KdeConnectConfig::privateKeyPath()
+ {
+     return baseConfigDir().absoluteFilePath(QStringLiteral("privateKey.pem"));
+diff -ruN ./kdeconnect-kde-1.0.3-orig/kdeconnect-kde-1.0.3/core/kdeconnectconfig.h ./kdeconnect-kde-1.0.3/core/kdeconnectconfig.h
+--- ./kdeconnect-kde-1.0.3-orig/kdeconnect-kde-1.0.3/core/kdeconnectconfig.h	2016-12-17 20:43:49.000000000 +0300
++++ ./kdeconnect-kde-1.0.3/core/kdeconnectconfig.h	2017-04-22 02:49:36.860927977 +0300
+@@ -48,7 +48,9 @@
+     QString deviceId();
+     QString name();
+     QString deviceType();
+-
++    QString bindAddress();
++    QString broadcastAddress();
++    
+     QString privateKeyPath();
+     QCA::PrivateKey privateKey();
+     QCA::PublicKey publicKey();
